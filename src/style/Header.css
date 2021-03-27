@@ -1,0 +1,17 @@
+header {
+  height: 4rem;
+  background: var(--background);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+header .name {
+  margin-top: 1rem;
+  color: var(--headline);
+  font-weight: 600;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

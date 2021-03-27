@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Ubuntu", sans-serif;
+  outline: none;
+}
+
+:root {
+  --background: #f2f7f5;
+  --headline: #00473e;
+  --paragraph: #475d5b;
+  --button: #faae2b;
+  --button-text: #00473e;
+  --stroke: #00332c;
+  --main: #f2f7f5;
+  --highlight: #faae2b;
+  --secondary: #ffa8ba;
+  --tertiary: #fa5246;
+}

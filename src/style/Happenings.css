@@ -1,0 +1,115 @@
+.container {
+  margin: 100px auto;
+  width: 809px;
+}
+
+.light {
+  background-color: var(--background);
+}
+
+.dark {
+  margin-left: 65px;
+}
+
+.calendar {
+  width: calc(100vw - 60px);
+  height: calc(100vh - 4rem);
+  padding: 20px 30px;
+  color: var(--paragraph);
+  display: inline-block;
+}
+
+.calendar_header {
+  border-bottom: 2px solid var(--secondary);
+}
+
+.header_copy {
+  color: var(--paragraph);
+  font-size: 20px;
+}
+
+.calendar_plan {
+  margin: 20px 0 40px;
+}
+
+.cl_plan {
+  width: calc(100% - 40px);
+  height: auto;
+  background-image: linear-gradient(-222deg, var(--highlight), var(--tertiary));
+  box-shadow: 0px 0px 52px -18px rgba(0, 0, 0, 0.75);
+  padding: 30px;
+  color: #fff;
+}
+
+.cl_copy {
+  font-size: 20px;
+  margin: 20px 0;
+  display: inline-block;
+}
+
+.cl_add {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+  color: #c2c2c2;
+  padding: 11px 13px;
+  float: right;
+}
+
+.calendar_events {
+  color: var(--paragraph);
+}
+
+.ce_title {
+  font-size: 1rem;
+}
+
+.event_item {
+  margin: 18px 0;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.event_item:hover {
+  background-image: linear-gradient(-222deg, var(--highlight), var(--tertiary));
+  box-shadow: 0px 0px 52px -18px rgba(0, 0, 0, 0.75);
+}
+
+.event_item:hover .ei_Dot {
+  background-color: #fff;
+}
+
+.event_item:hover .ei_Copy,
+.event_item:hover .ei_Title {
+  color: #fff;
+}
+
+.ei_Dot,
+.ei_Title {
+  display: inline-block;
+}
+
+.ei_Dot {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #a39d9e;
+  box-shadow: 0px 0px 52px -18px rgba(0, 0, 0, 0.75);
+}
+
+.dot_active {
+  background-color: var(--highlight);
+}
+
+.ei_Title {
+  margin-left: 10px;
+  color: var(--headline);
+}
+
+.ei_Copy {
+  font-size: 12px;
+  margin-left: 27px;
+}

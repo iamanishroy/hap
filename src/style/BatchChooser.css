@@ -1,0 +1,30 @@
+.optionsContainer {
+  height: calc(100vh - 4rem);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f2f7f5;
+}
+.optionsContainer .options {
+  margin: auto;
+  max-height: calc(100vh - 4rem);
+  overflow-y: scroll;
+  padding: 2rem 0;
+  width: 100vw;
+}
+
+.optionsContainer .options .option {
+  background-color: #faae2b;
+  color: #00473e;
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0.5rem 2rem;
+  padding: 0.8rem;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
