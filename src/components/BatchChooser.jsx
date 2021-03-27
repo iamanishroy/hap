@@ -55,7 +55,9 @@ const BatchChooser = () => {
                   response &&
                   Object.keys(response.data).map((id) => (
                     <>
-                      <div className="option">{response.data[id]}</div>
+                      <div key={id} className="option">
+                        {response.data[id]}
+                      </div>
                     </>
                   ))}
               </div>
