@@ -1,11 +1,15 @@
 import React from "react";
-// import puppeteer from "puppeteer";
+import Request from "axios-react";
+
 import "../style/Happenings.css";
 const Happenings = () => {
-//   console.log(fetchTimeTable(26, 3, 2021, "A"));
+  var dateObj = new Date();
+  var month = dateObj.getUTCMonth() + 1; //months from 1-12
+  var day = 30 ;//dateObj.getUTCDate();
+  var year = dateObj.getUTCFullYear();
+  var data = JSON.stringify({ day: day, month: month, year: year, batchID: "A" });
   return (
     <>
-      {/* <div className="container"> */}
       <div className="calendar light">
         <div className="calendar_header">
           {/* <h1 className="header_title">Welcome Back</h1> */}
@@ -14,46 +18,56 @@ const Happenings = () => {
         <div className="calendar_plan">
           <div className="cl_plan">
             <div className="cl_title">Today</div>
-            <div className="cl_copy">22nd April 2018</div>
-            <div className="cl_add">{/* <i className="fas fa-plus"></i> */}</div>
+            <div className="cl_copy">
+              {day}th March {year}
+            </div>
+            <div className="cl_add">
+              {/* <i className="fas fa-plus"></i> */}
+            </div>
           </div>
         </div>
         <div className="calendar_events">
           <p className="ce_title">Upcoming Events</p>
-          <div className="event_item">
-            <div className="ei_Dot dot_active"></div>
-            <div className="ei_Title">10:30 am</div>
-            <div className="ei_Copy">Monday briefing with the team</div>
-          </div>
-          <div className="event_item">
-            <div className="ei_Dot"></div>
-            <div className="ei_Title">12:00 pm</div>
-            <div className="ei_Copy">Lunch for with the besties</div>
-          </div>
-          <div className="event_item">
-            <div className="ei_Dot"></div>
-            <div className="ei_Title">13:00 pm</div>
-            <div className="ei_Copy">
-              Meet with the client for final design <br /> @foofinder
-            </div>
-          </div>
-          <div className="event_item">
-            <div className="ei_Dot"></div>
-            <div className="ei_Title">14:00 pm</div>
-            <div className="ei_Copy">
-              Meet with the client for final design <br /> @foofinder
-            </div>
-          </div>
-          <div className="event_item">
-            <div className="ei_Dot"></div>
-            <div className="ei_Title">14:30 am</div>
-            <div className="ei_Copy">Plan event night to inspire students</div>
-          </div>
-          <div className="event_item">
-            <div className="ei_Dot"></div>
-            <div className="ei_Title">15:30 am</div>
-            <div className="ei_Copy">Add some more events to the calendar</div>
-          </div>
+          <Request
+            config={{
+              method: "post",
+              url: "https://fantasy-quickest-child.glitch.me/timetable",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              data: data,
+            }}
+          >
+            {({ loading, response, error, refetch, networkStatus }) => (
+              <>
+                {loading ? (
+                  <>
+                    <span>FETCHING...</span>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {!loading && error && (
+                  <p>error: {error.response.data.errors[0]}</p>
+                )}
+                <div className="optionsContainer">
+                  <div className="options">
+                    {!loading &&
+                      response &&
+                      Object.keys(response.data).map((id) => (
+                        <>
+                          <div className="event_item">
+                            <div className="ei_Dot"></div>
+                            <div className="ei_Title">{id}</div>
+                            <div className="ei_Copy">{response.data[id]}</div>
+                          </div>
+                        </>
+                      ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </Request>
         </div>
       </div>
       {/* </div> */}
