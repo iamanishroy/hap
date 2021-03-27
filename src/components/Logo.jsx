@@ -21,8 +21,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-1_48189_gr1"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="72.5625"
@@ -32,8 +32,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-2_48189_gr2"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="94.0625"
@@ -43,8 +43,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-3_48189_gr3"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="51.0625"
@@ -54,8 +54,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-4_48189_gr4"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="72.5625"
@@ -65,8 +65,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-5_48189_gr5"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="94.0625"
@@ -76,8 +76,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-6_48189_gr6"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="86"
@@ -87,8 +87,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-7_48189_gr7"
           >
-            <stop offset="0" stop-color="#00473e"></stop>
-            <stop offset="1" stop-color="#00473e"></stop>
+            <stop offset="0" stopColor="#00473e"></stop>
+            <stop offset="1" stopColor="#00473e"></stop>
           </linearGradient>
           <linearGradient
             x1="133.03125"
@@ -98,8 +98,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-8_48189_gr8"
           >
-            <stop offset="0" stop-color="#00473e"></stop>
-            <stop offset="1" stop-color="#00473e"></stop>
+            <stop offset="0" stopColor="#00473e"></stop>
+            <stop offset="1" stopColor="#00473e"></stop>
           </linearGradient>
           <linearGradient
             x1="51.0625"
@@ -109,8 +109,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-9_48189_gr9"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="72.5625"
@@ -120,8 +120,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-10_48189_gr10"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="94.0625"
@@ -131,8 +131,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-11_48189_gr11"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="51.0625"
@@ -142,8 +142,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-12_48189_gr12"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="72.5625"
@@ -153,8 +153,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-13_48189_gr13"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="94.0625"
@@ -164,8 +164,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-14_48189_gr14"
           >
-            <stop offset="0" stop-color="#00b7a0"></stop>
-            <stop offset="1" stop-color="#00b7a0"></stop>
+            <stop offset="0" stopColor="#00b7a0"></stop>
+            <stop offset="1" stopColor="#00b7a0"></stop>
           </linearGradient>
           <linearGradient
             x1="86"
@@ -175,8 +175,8 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-15_48189_gr15"
           >
-            <stop offset="0" stop-color="#00473e"></stop>
-            <stop offset="1" stop-color="#00473e"></stop>
+            <stop offset="0" stopColor="#00473e"></stop>
+            <stop offset="1" stopColor="#00473e"></stop>
           </linearGradient>
           <linearGradient
             x1="133.03125"
@@ -186,28 +186,28 @@ const Logo = () => {
             gradientUnits="userSpaceOnUse"
             id="color-16_48189_gr16"
           >
-            <stop offset="0" stop-color="#00473e"></stop>
-            <stop offset="1" stop-color="#00473e"></stop>
+            <stop offset="0" stopColor="#00473e"></stop>
+            <stop offset="1" stopColor="#00473e"></stop>
           </linearGradient>
         </defs>
         <g transform="translate(0.946,0.946) scale(0.989,0.989)">
           <g
             fill="none"
-            fill-rule="nonzero"
+            fillRule="nonzero"
             stroke="none"
-            stroke-width="none"
-            stroke-linecap="butt"
-            stroke-linejoin="none"
-            stroke-miterlimit="10"
-            stroke-dasharray=""
-            stroke-dashoffset="0"
-            font-family="none"
-            font-weight="none"
-            font-size="none"
-            text-anchor="none"
+            strokeWidth="none"
+            strokeLinecap="butt"
+            strokeLinejoin="none"
+            strokeMiterlimit="10"
+            strokeDasharray=""
+            strokeDashoffset="0"
+            fontFamily="none"
+            fontWeight="none"
+            fontSize="none"
+            textAnchor="none"
             style={{ mixBlendMode: "normal" }}
           >
-            <g stroke="#00473e" stroke-width="2" stroke-linejoin="round">
+            <g stroke="#00473e" strokeWidth="2" strokeLinejoin="round">
               <path
                 d="M59.125,86c0,1.4835 -1.204,2.6875 -2.6875,2.6875h-10.75c-1.4835,0 -2.6875,-1.204 -2.6875,-2.6875v-10.75c0,-1.4835 1.204,-2.6875 2.6875,-2.6875h10.75c1.4835,0 2.6875,1.204 2.6875,2.6875z"
                 fill="url(#color-1_48189_gr1)"
@@ -245,10 +245,10 @@ const Logo = () => {
               d="M0,172v-172h172v172z"
               fill="none"
               stroke="none"
-              stroke-width="1"
-              stroke-linejoin="miter"
+              strokeWidth="1"
+              strokeLinejoin="miter"
             ></path>
-            <g stroke="none" stroke-width="1" stroke-linejoin="miter">
+            <g stroke="none" strokeWidth="1" strokeLinejoin="miter">
               <path
                 d="M59.125,86c0,1.4835 -1.204,2.6875 -2.6875,2.6875h-10.75c-1.4835,0 -2.6875,-1.204 -2.6875,-2.6875v-10.75c0,-1.4835 1.204,-2.6875 2.6875,-2.6875h10.75c1.4835,0 2.6875,1.204 2.6875,2.6875z"
                 fill="url(#color-9_48189_gr9)"
@@ -286,15 +286,15 @@ const Logo = () => {
               d=""
               fill="none"
               stroke="none"
-              stroke-width="1"
-              stroke-linejoin="miter"
+              strokeWidth="1"
+              strokeLinejoin="miter"
             ></path>
             <path
               d=""
               fill="none"
               stroke="none"
-              stroke-width="1"
-              stroke-linejoin="miter"
+              strokeWidth="1"
+              strokeLinejoin="miter"
             ></path>
           </g>
         </g>

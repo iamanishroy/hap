@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <>
       <header>
-        <div class="name">
+        <div className="name">
           <Logo />
           Hap
         </div>
