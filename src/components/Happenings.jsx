@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Request from "axios-react";
 import { hapDatabase } from "../firebase/config";
+import $ from "jquery";
+import "jquery-ui-bundle";
 import "../style/Happenings.css";
 import "../style/clockLoading.css";
-import { localStorage } from "window-or-global";
+import "../style/calender.css";
+import { Date, localStorage } from "window-or-global";
 const Happenings = () => {
   const history = useHistory();
   if (!localStorage.getItem("batch")) {
     history.push("/");
   }
   var dateObj = new Date();
-  var day = 26; // dateObj.getUTCDate();
-  var month = dateObj.getUTCMonth() + 1; //months from 1-12
-  var year = dateObj.getUTCFullYear();
+  const [day, setDay] = useState(26); // dateObj.getUTCDate();
+  var [month, setMonth] = useState(dateObj.getUTCMonth() + 1); //months from 1-12
+  var [year, setYear] = useState(dateObj.getUTCFullYear());
   var data = JSON.stringify({
     day: day,
     month: month,
@@ -25,6 +28,19 @@ const Happenings = () => {
 
   const [schedule, setSchedule] = useState();
   const [fbChecked, setFbChecked] = useState(false);
+
+  $(function () {
+    $("#datepicker").datepicker({
+      dateFormat: "dd-mm-yy",
+      duration: "fast",
+      onSelect: function (d, i) {
+        setDay(i.selectedDay);
+        setMonth(i.selectedMonth);
+        setYear(i.selectedYear);
+        // console.log(day, month, year);
+      },
+    });
+  });
 
   useEffect(() => {
     if (localStorage.getItem("batch")) {
@@ -47,12 +63,21 @@ const Happenings = () => {
 
     return n - t >= 0.0 && n - t <= 1.0;
   };
+
   return (
     <>
       <div className="calendar light">
         <div className="calendar_header">
           {/* <h1 className="header_title">Welcome Back</h1> */}
-          <p className="header_copy"> Today's Plan</p>
+          <p className="header_copy"> Your Schedule</p>
+          <div className="wrapper">
+            <input
+              type="text"
+              id="datepicker"
+              defaultValue={new Date()}
+              autoComplete="off"
+            />
+          </div>
         </div>
         <div className="calendar_plan">
           <div className="cl_plan">
@@ -60,8 +85,13 @@ const Happenings = () => {
             <div className="cl_copy">
               {day}th March {year}
             </div>
-            <div className="cl_add">
-              {/* <i className="fas fa-plus"></i> */}
+            <div
+              className="cl_add"
+              onClick={() => {
+                document.querySelector("#datepicker").focus();
+              }}
+            >
+              📅
             </div>
           </div>
         </div>
