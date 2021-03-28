@@ -323,8 +323,8 @@ const Calender = () => {
           gradientUnits="userSpaceOnUse"
           id="color-1_wfSi4ctFgte4_gr1"
         >
-          <stop offset="0" stop-color="#68c3ba"></stop>
-          <stop offset="1" stop-color="#2b9d92"></stop>
+          <stop offset="0" stopColor="#68c3ba"></stop>
+          <stop offset="1" stopColor="#2b9d92"></stop>
         </linearGradient>
         <linearGradient
           x1="23.005"
@@ -334,8 +334,8 @@ const Calender = () => {
           gradientUnits="userSpaceOnUse"
           id="color-2_wfSi4ctFgte4_gr2"
         >
-          <stop offset="0" stop-color="#00473e"></stop>
-          <stop offset="1" stop-color="#00332c"></stop>
+          <stop offset="0" stopColor="#00473e"></stop>
+          <stop offset="1" stopColor="#00332c"></stop>
         </linearGradient>
       </defs>
       <g
