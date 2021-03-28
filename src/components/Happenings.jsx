@@ -1,33 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Request from "axios-react";
+import { console, Date, localStorage } from "window-or-global";
 import { hapDatabase } from "../firebase/config";
+import axios from "axios";
 import $ from "jquery";
 import "jquery-ui-bundle";
 import "../style/Happenings.css";
 import "../style/clockLoading.css";
 import "../style/calender.css";
-import { Date, localStorage } from "window-or-global";
+
 const Happenings = () => {
   const history = useHistory();
   if (!localStorage.getItem("batch")) {
     history.push("/");
   }
   var dateObj = new Date();
-  const [day, setDay] = useState(26); // dateObj.getUTCDate();
-  var [month, setMonth] = useState(dateObj.getUTCMonth() + 1); //months from 1-12
-  var [year, setYear] = useState(dateObj.getUTCFullYear());
-  var data = JSON.stringify({
-    day: day,
-    month: month,
-    year: year,
-    batchID: localStorage.getItem("batch"),
-  });
-
-  // TODO: Add localstorage
+  const [day, setDay] = useState(dateObj.getUTCDate());
+  const [month, setMonth] = useState(dateObj.getUTCMonth() + 1); //months from 1-12
+  const [year, setYear] = useState(dateObj.getUTCFullYear());
 
   const [schedule, setSchedule] = useState();
-  const [fbChecked, setFbChecked] = useState(false);
 
   $(function () {
     $("#datepicker").datepicker({
@@ -35,23 +27,71 @@ const Happenings = () => {
       duration: "fast",
       onSelect: function (d, i) {
         setDay(i.selectedDay);
-        setMonth(i.selectedMonth);
+        setMonth(i.selectedMonth + 1);
         setYear(i.selectedYear);
-        // console.log(day, month, year);
       },
     });
   });
 
+  const getDayName = (day, month, year) => {
+    if (
+      dateObj.getUTCFullYear() === year &&
+      dateObj.getUTCMonth() + 1 === month &&
+      dateObj.getUTCDate() === parseInt(day)
+    )
+      return "Today";
+    if (
+      dateObj.getUTCFullYear() === year &&
+      dateObj.getUTCMonth() + 1 === month &&
+      dateObj.getUTCDate() + 1 === parseInt(day)
+    )
+      return "Tomorrow";
+    var baseDate = new Date(Date.UTC(year, month - 1, day));
+    return baseDate.toLocaleDateString("en-US", { weekday: "long" });
+  };
+
   useEffect(() => {
     if (localStorage.getItem("batch")) {
+      setSchedule(null);
       var batch = localStorage.getItem("batch");
+      var dateObj = new Date();
+      var localVarName = `${batch}_${dateObj.getUTCFullYear()}_${
+        dateObj.getUTCMonth() + 1
+      }_${dateObj.getUTCDay()}_${year}_${month}_${day}`;
+      if (localStorage.getItem(localVarName)) {
+        return setSchedule(JSON.parse(localStorage.getItem(localVarName)));
+      }
+      var data = JSON.stringify({
+        day: day,
+        month: month,
+        year: year,
+        batchID: batch,
+      });
       hapDatabase
         .ref(`batch/${batch}/${day}-${month}-${year}`)
         .once("value", function (snapshot) {
           if (snapshot.val()) {
             setSchedule(snapshot.val());
+            localStorage.setItem(localVarName, JSON.stringify(snapshot.val()));
           } else {
-            setFbChecked(true);
+            axios({
+              method: "post",
+              url: "https://leather-knowledgeable-trombone.glitch.me/timetable",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              data: data,
+            })
+              .then(function (response) {
+                setSchedule(response.data);
+                localStorage.setItem(
+                  localVarName,
+                  JSON.stringify(response.data)
+                );
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           }
         });
     }
@@ -81,7 +121,7 @@ const Happenings = () => {
         </div>
         <div className="calendar_plan">
           <div className="cl_plan">
-            <div className="cl_title">Today</div>
+            <div className="cl_title">{getDayName(day, month, year)}</div>
             <div className="cl_copy">
               {day}th March {year}
             </div>
@@ -118,55 +158,6 @@ const Happenings = () => {
                     </>
                   ))}
                 </>
-              ) : fbChecked ? (
-                <Request
-                  config={{
-                    method: "post",
-                    url:
-                      "https://leather-knowledgeable-trombone.glitch.me/timetable",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    data: data,
-                  }}
-                >
-                  {({ loading, response, error, refetch, networkStatus }) => (
-                    <>
-                      {loading ? (
-                        <div className="loader">
-                          <div className="clock">
-                            <div className="minutes"></div>
-                            <div className="hours"></div>
-                          </div>
-                          <div className="txt">loading</div>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                      {!loading && error && (
-                        <p>error: {error.response.data.errors[0]}</p>
-                      )}
-                      <>
-                        {!loading &&
-                          response &&
-                          Object.keys(response.data).map((id) => (
-                            <div key={id} className="event_item">
-                              {+new Date().getUTCDate() !== day &&
-                              +new Date().getUTCMonth() + 1 === month &&
-                              +new Date().getUTCFullYear() === year &&
-                              getHrDiff(id) ? (
-                                <div className="ei_Dot dot_active"></div>
-                              ) : (
-                                <div className="ei_Dot"></div>
-                              )}
-                              <div className="ei_Title">{id}</div>
-                              <div className="ei_Copy">{schedule[id]}</div>
-                            </div>
-                          ))}
-                      </>
-                    </>
-                  )}
-                </Request>
               ) : (
                 <div className="loader">
                   <div className="clock">
@@ -180,7 +171,6 @@ const Happenings = () => {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 };
