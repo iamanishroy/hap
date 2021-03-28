@@ -1,13 +1,24 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Request from "axios-react";
-
 import "../style/Happenings.css";
+import "../style/clockLoading.css";
+import { localStorage } from "window-or-global";
 const Happenings = () => {
+  const history = useHistory();
+  if (!localStorage.getItem("batch")) {
+    history.push("/");
+  }
   var dateObj = new Date();
   var month = dateObj.getUTCMonth() + 1; //months from 1-12
-  var day = 30 ;//dateObj.getUTCDate();
+  var day = 30; //dateObj.getUTCDate();
   var year = dateObj.getUTCFullYear();
-  var data = JSON.stringify({ day: day, month: month, year: year, batchID: "A" });
+  var data = JSON.stringify({
+    day: day,
+    month: month,
+    year: year,
+    batchID: localStorage.getItem("batch"),
+  });
   return (
     <>
       <div className="calendar light">
@@ -41,9 +52,13 @@ const Happenings = () => {
             {({ loading, response, error, refetch, networkStatus }) => (
               <>
                 {loading ? (
-                  <>
-                    <span>FETCHING...</span>
-                  </>
+                  <div className="loader">
+                    <div className="clock">
+                      <div className="minutes"></div>
+                      <div className="hours"></div>
+                    </div>
+                    <div className="txt">loading</div>
+                  </div>
                 ) : (
                   <></>
                 )}

@@ -1,4 +1,4 @@
-.optionsContainer {
+.batchOptionsContainer {
   height: calc(100vh - 4rem);
   width: 100vw;
   display: flex;
@@ -6,7 +6,7 @@
   justify-content: center;
   background-color: #f2f7f5;
 }
-.optionsContainer .options {
+.batchOptionsContainer .options {
   margin: auto;
   max-height: calc(100vh - 4rem);
   overflow-y: scroll;
@@ -14,7 +14,7 @@
   width: 100vw;
 }
 
-.optionsContainer .options .option {
+.batchOptionsContainer .options .option {
   background-color: #faae2b;
   color: #00473e;
   height: 2.6rem;
