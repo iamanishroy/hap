@@ -5,9 +5,25 @@ import { hapDatabase } from "../firebase/config";
 import axios from "axios";
 import $ from "jquery";
 import "jquery-ui-bundle";
+import { BackIcon, Calender } from "./Logo";
 import "../style/Happenings.css";
 import "../style/clockLoading.css";
 import "../style/calender.css";
+
+const monthName = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const Happenings = () => {
   const history = useHistory();
@@ -103,13 +119,25 @@ const Happenings = () => {
 
     return n - t >= 0.0 && n - t <= 1.0;
   };
-
+  const getExt = (n) => {
+    var ext = ["st", "nd", "rd"];
+    return n > 4 ? "th" : ext[n - 1];
+  };
+  const goToBatch = () => {
+    history.push("/");
+    localStorage.removeItem("batch");
+  };
   return (
     <>
       <div className="calendar light">
         <div className="calendar_header">
           {/* <h1 className="header_title">Welcome Back</h1> */}
-          <p className="header_copy"> Your Schedule</p>
+          <p className="header_copy">
+            <b onClick={goToBatch}>
+              <BackIcon />
+            </b>
+            <span>{localStorage.getItem("batchName")}</span>
+          </p>
           <div className="wrapper">
             <input
               type="text"
@@ -123,7 +151,7 @@ const Happenings = () => {
           <div className="cl_plan">
             <div className="cl_title">{getDayName(day, month, year)}</div>
             <div className="cl_copy">
-              {day}th March {year}
+              {day + getExt(parseInt(day))} {monthName[month - 1]} {year}
             </div>
             <div
               className="cl_add"
@@ -131,12 +159,13 @@ const Happenings = () => {
                 document.querySelector("#datepicker").focus();
               }}
             >
-              📅
+              {/* 📅 */}
+              <Calender />
             </div>
           </div>
         </div>
         <div className="calendar_events">
-          <p className="ce_title">Upcoming Events</p>
+          <p className="ce_title">Your Schedule</p>
           <div className="optionsContainer">
             <div className="options">
               {schedule ? (

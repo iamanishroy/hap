@@ -7,20 +7,21 @@ import "../style/BatchChooser.css";
 
 const BatchChooser = () => {
   const history = useHistory();
-  const setBatch = (batchID) => {
+  const setBatch = (batchID, batchName) => {
     localStorage.setItem("batch", batchID);
+    localStorage.setItem("batchName", batchName);
     history.push("/timetable");
   };
 
-  const [schedule, setSchedule] = useState();
+  const [batchList, setBatchList] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("batchList")) {
-      return setSchedule(JSON.parse(localStorage.getItem("batchList")));
+      return setBatchList(JSON.parse(localStorage.getItem("batchList")));
     }
     hapDatabase.ref("batchList").once("value", function (snapshot) {
       if (snapshot.val()) {
-        setSchedule(snapshot.val());
+        setBatchList(snapshot.val());
         localStorage.setItem("batchList", JSON.stringify(snapshot.val()));
       } else {
         axios({
@@ -31,7 +32,7 @@ const BatchChooser = () => {
           },
         })
           .then(function (response) {
-            setSchedule(response.data);
+            setBatchList(response.data);
             localStorage.setItem("batchList", JSON.stringify(response.data));
           })
           .catch(function (error) {
@@ -43,14 +44,18 @@ const BatchChooser = () => {
 
   return (
     <>
-      {schedule ? (
+      {batchList ? (
         <>
           <div className="batchOptionsContainer">
             <div className="options">
-              {Object.keys(schedule).map((id) => (
+              {Object.keys(batchList).map((id) => (
                 <>
-                  <div key={id} onClick={() => setBatch(id)} className="option">
-                    {schedule[id]}
+                  <div
+                    key={id}
+                    onClick={() => setBatch(id, batchList[id])}
+                    className="option"
+                  >
+                    {batchList[id]}
                   </div>
                 </>
               ))}

@@ -26,7 +26,13 @@
 .header_copy {
   color: var(--paragraph);
   font-size: 20px;
+  display: flex;
+  align-items: center;
 }
+.header_copy span{
+  margin-left: 20px;
+}
+
 
 .calendar_plan {
   margin: 20px 0 40px;
