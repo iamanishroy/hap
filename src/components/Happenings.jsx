@@ -173,7 +173,7 @@ const Happenings = () => {
                   {Object.keys(schedule).map((id) => (
                     <>
                       <div key={id} className="event_item">
-                        {+new Date().getUTCDate() !== day &&
+                        {+new Date().getUTCDate() === day &&
                         +new Date().getUTCMonth() + 1 === month &&
                         +new Date().getUTCFullYear() === year &&
                         getHrDiff(id) ? (
