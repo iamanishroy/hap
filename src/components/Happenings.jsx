@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Request from "axios-react";
+import { hapDatabase } from "../firebase/config";
 import "../style/Happenings.css";
 import "../style/clockLoading.css";
 import { localStorage } from "window-or-global";
@@ -10,8 +11,8 @@ const Happenings = () => {
     history.push("/");
   }
   var dateObj = new Date();
+  var day = 26; //dateObj.getUTCDate();
   var month = dateObj.getUTCMonth() + 1; //months from 1-12
-  var day = 30; //dateObj.getUTCDate();
   var year = dateObj.getUTCFullYear();
   var data = JSON.stringify({
     day: day,
@@ -19,6 +20,25 @@ const Happenings = () => {
     year: year,
     batchID: localStorage.getItem("batch"),
   });
+
+  const [schedule, setSchedule] = useState();
+  const [fbChecked, setFbChecked] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("batch")) {
+      var batch = localStorage.getItem("batch");
+      hapDatabase
+        .ref(`batch/${batch}/${day}-${month}-${year}`)
+        .once("value", function (snapshot) {
+          if (snapshot.val()) {
+            setSchedule(snapshot.val());
+          } else {
+            setFbChecked(true);
+          }
+        });
+    }
+  }, [day, month, year]);
+
   return (
     <>
       <div className="calendar light">
@@ -39,50 +59,77 @@ const Happenings = () => {
         </div>
         <div className="calendar_events">
           <p className="ce_title">Upcoming Events</p>
-          <Request
-            config={{
-              method: "post",
-              url: "https://fantasy-quickest-child.glitch.me/timetable",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              data: data,
-            }}
-          >
-            {({ loading, response, error, refetch, networkStatus }) => (
-              <>
-                {loading ? (
-                  <div className="loader">
-                    <div className="clock">
-                      <div className="minutes"></div>
-                      <div className="hours"></div>
-                    </div>
-                    <div className="txt">loading</div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {!loading && error && (
-                  <p>error: {error.response.data.errors[0]}</p>
-                )}
-                <div className="optionsContainer">
-                  <div className="options">
-                    {!loading &&
-                      response &&
-                      Object.keys(response.data).map((id) => (
-                        <>
-                          <div className="event_item">
-                            <div className="ei_Dot"></div>
-                            <div className="ei_Title">{id}</div>
-                            <div className="ei_Copy">{response.data[id]}</div>
+          <div className="optionsContainer">
+            <div className="options">
+              {schedule ? (
+                <>
+                  {Object.keys(schedule).map((id) => (
+                    <>
+                      <div key={id} className="event_item">
+                        <div className="ei_Dot"></div>
+                        <div className="ei_Title">{id}</div>
+                        <div className="ei_Copy">{schedule[id]}</div>
+                      </div>
+                    </>
+                  ))}
+                </>
+              ) : fbChecked ? (
+                <Request
+                  config={{
+                    method: "post",
+                    url:
+                      "https://leather-knowledgeable-trombone.glitch.me/timetable",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    data: data,
+                  }}
+                >
+                  {({ loading, response, error, refetch, networkStatus }) => (
+                    <>
+                      {loading ? (
+                        <div className="loader">
+                          <div className="clock">
+                            <div className="minutes"></div>
+                            <div className="hours"></div>
                           </div>
-                        </>
-                      ))}
+                          <div className="txt">loading</div>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      {!loading && error && (
+                        <p>error: {error.response.data.errors[0]}</p>
+                      )}
+                      <>
+                        {!loading &&
+                          response &&
+                          Object.keys(response.data).map((id) => (
+                            <>
+                              <div key={id} className="event_item">
+                                <div className="ei_Dot"></div>
+                                <div className="ei_Title">{id}</div>
+                                <div className="ei_Copy">
+                                  {response.data[id]}
+                                </div>
+                              </div>
+                            </>
+                          ))}
+                      </>
+                    </>
+                  )}
+                </Request>
+              ) : (
+                <div className="loader">
+                  <div className="clock">
+                    <div className="minutes"></div>
+                    <div className="hours"></div>
                   </div>
+                  <div className="txt">loading</div>
                 </div>
-              </>
-            )}
-          </Request>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       {/* </div> */}
