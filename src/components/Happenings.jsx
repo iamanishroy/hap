@@ -11,7 +11,7 @@ const Happenings = () => {
     history.push("/");
   }
   var dateObj = new Date();
-  var day = 26; //dateObj.getUTCDate();
+  var day = 26; // dateObj.getUTCDate();
   var month = dateObj.getUTCMonth() + 1; //months from 1-12
   var year = dateObj.getUTCFullYear();
   var data = JSON.stringify({
@@ -20,6 +20,8 @@ const Happenings = () => {
     year: year,
     batchID: localStorage.getItem("batch"),
   });
+
+  // TODO: Add localstorage
 
   const [schedule, setSchedule] = useState();
   const [fbChecked, setFbChecked] = useState(false);
@@ -39,6 +41,12 @@ const Happenings = () => {
     }
   }, [day, month, year]);
 
+  const getHrDiff = (hm) => {
+    var t = parseFloat(`${hm.split(":")[0]}.${hm.split(":")[1]}`);
+    var n = parseFloat(`${+new Date().getHours()}.${+new Date().getMinutes()}`);
+
+    return n - t >= 0.0 && n - t <= 1.0;
+  };
   return (
     <>
       <div className="calendar light">
@@ -66,7 +74,14 @@ const Happenings = () => {
                   {Object.keys(schedule).map((id) => (
                     <>
                       <div key={id} className="event_item">
-                        <div className="ei_Dot"></div>
+                        {+new Date().getUTCDate() !== day &&
+                        +new Date().getUTCMonth() + 1 === month &&
+                        +new Date().getUTCFullYear() === year &&
+                        getHrDiff(id) ? (
+                          <div className="ei_Dot dot_active"></div>
+                        ) : (
+                          <div className="ei_Dot"></div>
+                        )}
                         <div className="ei_Title">{id}</div>
                         <div className="ei_Copy">{schedule[id]}</div>
                       </div>
@@ -105,15 +120,18 @@ const Happenings = () => {
                         {!loading &&
                           response &&
                           Object.keys(response.data).map((id) => (
-                            <>
-                              <div key={id} className="event_item">
+                            <div key={id} className="event_item">
+                              {+new Date().getUTCDate() !== day &&
+                              +new Date().getUTCMonth() + 1 === month &&
+                              +new Date().getUTCFullYear() === year &&
+                              getHrDiff(id) ? (
+                                <div className="ei_Dot dot_active"></div>
+                              ) : (
                                 <div className="ei_Dot"></div>
-                                <div className="ei_Title">{id}</div>
-                                <div className="ei_Copy">
-                                  {response.data[id]}
-                                </div>
-                              </div>
-                            </>
+                              )}
+                              <div className="ei_Title">{id}</div>
+                              <div className="ei_Copy">{schedule[id]}</div>
+                            </div>
                           ))}
                       </>
                     </>
