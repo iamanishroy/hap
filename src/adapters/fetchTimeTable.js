@@ -4,17 +4,17 @@ import axios from "axios";
 var cancelToken;
 const fetchTimeTable = async (day, month, year, batch) => {
   var snapshot = await hapDatabase
-    .ref(`batc/${batch}/${day}-${month}-${year}`)
+    .ref(`batch/${batch}/${day}-${month}-${year}`)
     .once("value");
   if (snapshot.val()) {
     return snapshot.val();
   } else {
-    var data = JSON.stringify({
+    var data = {
       day: day,
       month: month,
       year: year,
       batchID: batch,
-    });
+    };
     try {
       if (typeof cancelToken != typeof undefined) {
         cancelToken.cancel("Canceling the Previous Request");
