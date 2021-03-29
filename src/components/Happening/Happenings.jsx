@@ -7,9 +7,7 @@ import { BackIcon, Calender } from "../common/Logo";
 import "./../../style/Happenings.css";
 import "./../../style/clockLoading.css";
 import "./../../style/calender.css";
-// import Occasion from "./components/Occasion";
-import { Festival, IndianFlag } from "../common/Logo";
-import data from "./components/helper/festData.json";
+import Occasion from "./components/Occasion";
 import fetchTimeTable from "../../adapters/fetchTimeTable";
 import EventDiv from "./components/EventDiv";
 import Loader from "../common/Loader";
@@ -69,8 +67,6 @@ const Happenings = () => {
     return baseDate.toLocaleDateString("en-US", { weekday: "long" });
   };
 
-  const [oca, setOca] = useState();
-
   useEffect(() => {
     if (localStorage.getItem("batch")) {
       setSchedule(null);
@@ -93,16 +89,6 @@ const Happenings = () => {
         });
       }
     }
-    data.forEach((oc) => {
-      if (
-        oc.date.datetime.day === day &&
-        oc.date.datetime.month === month &&
-        oc.date.datetime.year === year
-      ) {
-        setOca(oc);
-        // TODO: ☝️ Why not setting
-      }
-    });
   }, [day, month, year]);
 
   const getExt = (n) => {
@@ -113,10 +99,6 @@ const Happenings = () => {
     history.push("/");
     localStorage.removeItem("batch");
   };
-
-  // useEffect(() => {
-
-  // }, [day, month, year]);
 
   return (
     <>
@@ -152,14 +134,7 @@ const Happenings = () => {
             <div className="cl_copy">
               {day + getExt(parseInt(day))} {monthName[month - 1]} {year}
             </div>
-            {oca && (
-              <div className="fest">
-                <Festival />
-                <span>{oca.name}</span>
-                {oca.type.includes("National holiday") && <IndianFlag />}
-              </div>
-            )}
-            {/* <Occasion day={day} month={month} year={year} /> */}
+            <Occasion day={day} month={month} year={year} />
           </div>
         </div>
         <div className="calendar_events">

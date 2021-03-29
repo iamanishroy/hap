@@ -5,9 +5,10 @@ import data from "./helper/festData.json";
 const Occasion = ({ day, month, year }) => {
   const [oca, setOca] = useState();
   useEffect(() => {
+    setOca(null);
     data.forEach((oc) => {
       if (
-        oc.date.datetime.day === day &&
+        oc.date.datetime.day === parseInt(day) &&
         oc.date.datetime.month === month &&
         oc.date.datetime.year === year
       ) {
