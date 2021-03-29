@@ -29,10 +29,9 @@
   display: flex;
   align-items: center;
 }
-.header_copy span{
+.header_copy span {
   margin-left: 20px;
 }
-
 
 .calendar_plan {
   margin: 20px 0 40px;
@@ -53,6 +52,15 @@
   display: inline-block;
 }
 
+.fest {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.fest span {
+  margin: auto 10px;
+}
 .cl_add {
   display: flex;
   align-items: center;
@@ -66,6 +74,7 @@
   color: #c2c2c2;
   padding: 11px 13px;
   float: right;
+  /* transform: translateY(-80px); */
 }
 
 .calendar_events {

@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import "./style/main.css";
-import Header from "./components/Header";
-import BatchChooser from "./components/BatchChooser";
-import Happenings from "./components/Happenings";
+import Header from "./components/Header/Header";
+import BatchChooser from "./components/Batch/BatchChooser";
+import Happenings from "./components/Happening/Happenings";
 import { localStorage } from "window-or-global";
 function App() {
   const history = useHistory();

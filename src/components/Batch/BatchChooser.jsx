@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { localStorage } from "window-or-global";
-import { hapDatabase } from "../firebase/config";
-import axios from "axios";
-import "../style/BatchChooser.css";
+import "./../../style/BatchChooser.css";
+import fetchBatch from "../../adapters/fetchBatch";
 
 const BatchChooser = () => {
   const history = useHistory();
@@ -19,25 +18,12 @@ const BatchChooser = () => {
     if (localStorage.getItem("batchList")) {
       return setBatchList(JSON.parse(localStorage.getItem("batchList")));
     }
-    hapDatabase.ref("batchList").once("value", function (snapshot) {
-      if (snapshot.val()) {
-        setBatchList(snapshot.val());
-        localStorage.setItem("batchList", JSON.stringify(snapshot.val()));
+    fetchBatch().then((res) => {
+      if (res !== 0) {
+        setBatchList(res);
+        localStorage.setItem("batchList", JSON.stringify(res));
       } else {
-        axios({
-          method: "post",
-          url: "https://leather-knowledgeable-trombone.glitch.me/batch",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then(function (response) {
-            setBatchList(response.data);
-            localStorage.setItem("batchList", JSON.stringify(response.data));
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        // TODO: error
       }
     });
   }, []);

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { console, Date, localStorage } from "window-or-global";
-import { hapDatabase } from "../firebase/config";
-import axios from "axios";
+import { Date, localStorage } from "window-or-global";
 import $ from "jquery";
 import "jquery-ui-bundle";
-import { BackIcon, Calender } from "./Logo";
-import "../style/Happenings.css";
-import "../style/clockLoading.css";
-import "../style/calender.css";
+import { BackIcon, Calender } from "../common/Logo";
+import "./../../style/Happenings.css";
+import "./../../style/clockLoading.css";
+import "./../../style/calender.css";
+import Occasion from "../Batch/components/Occasion";
+import fetchTimeTable from "../../adapters/fetchTimeTable";
 
 const monthName = [
   "January",
@@ -74,42 +74,19 @@ const Happenings = () => {
       var localVarName = `${batch}_${dateObj.getUTCFullYear()}_${
         dateObj.getUTCMonth() + 1
       }_${dateObj.getUTCDay()}_${year}_${month}_${day}`;
+
       if (localStorage.getItem(localVarName)) {
         return setSchedule(JSON.parse(localStorage.getItem(localVarName)));
-      }
-      var data = JSON.stringify({
-        day: day,
-        month: month,
-        year: year,
-        batchID: batch,
-      });
-      hapDatabase
-        .ref(`batch/${batch}/${day}-${month}-${year}`)
-        .once("value", function (snapshot) {
-          if (snapshot.val()) {
-            setSchedule(snapshot.val());
-            localStorage.setItem(localVarName, JSON.stringify(snapshot.val()));
+      } else {
+        fetchTimeTable(day, month, year, batch).then((res) => {
+          if (res !== 0) {
+            setSchedule(res);
+            localStorage.setItem(localVarName, JSON.stringify(res));
           } else {
-            axios({
-              method: "post",
-              url: "https://leather-knowledgeable-trombone.glitch.me/timetable",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              data: data,
-            })
-              .then(function (response) {
-                setSchedule(response.data);
-                localStorage.setItem(
-                  localVarName,
-                  JSON.stringify(response.data)
-                );
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+            // err
           }
         });
+      }
     }
   }, [day, month, year]);
 
@@ -149,10 +126,6 @@ const Happenings = () => {
         </div>
         <div className="calendar_plan">
           <div className="cl_plan">
-            <div className="cl_title">{getDayName(day, month, year)}</div>
-            <div className="cl_copy">
-              {day + getExt(parseInt(day))} {monthName[month - 1]} {year}
-            </div>
             <div
               className="cl_add"
               onClick={() => {
@@ -162,6 +135,11 @@ const Happenings = () => {
               {/* 📅 */}
               <Calender />
             </div>
+            <div className="cl_title">{getDayName(day, month, year)}</div>
+            <div className="cl_copy">
+              {day + getExt(parseInt(day))} {monthName[month - 1]} {year}
+            </div>
+            <Occasion />
           </div>
         </div>
         <div className="calendar_events">
