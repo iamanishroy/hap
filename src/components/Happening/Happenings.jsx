@@ -7,9 +7,12 @@ import { BackIcon, Calender } from "../common/Logo";
 import "./../../style/Happenings.css";
 import "./../../style/clockLoading.css";
 import "./../../style/calender.css";
-import Occasion from "../Batch/components/Occasion";
+// import Occasion from "./components/Occasion";
+import { Festival, IndianFlag } from "../common/Logo";
+import data from "./components/helper/festData.json";
 import fetchTimeTable from "../../adapters/fetchTimeTable";
-
+import EventDiv from "./components/EventDiv";
+import Loader from "../common/Loader";
 const monthName = [
   "January",
   "February",
@@ -66,6 +69,8 @@ const Happenings = () => {
     return baseDate.toLocaleDateString("en-US", { weekday: "long" });
   };
 
+  const [oca, setOca] = useState();
+
   useEffect(() => {
     if (localStorage.getItem("batch")) {
       setSchedule(null);
@@ -76,7 +81,7 @@ const Happenings = () => {
       }_${dateObj.getUTCDay()}_${year}_${month}_${day}`;
 
       if (localStorage.getItem(localVarName)) {
-        return setSchedule(JSON.parse(localStorage.getItem(localVarName)));
+        setSchedule(JSON.parse(localStorage.getItem(localVarName)));
       } else {
         fetchTimeTable(day, month, year, batch).then((res) => {
           if (res !== 0) {
@@ -88,14 +93,18 @@ const Happenings = () => {
         });
       }
     }
+    data.forEach((oc) => {
+      if (
+        oc.date.datetime.day === day &&
+        oc.date.datetime.month === month &&
+        oc.date.datetime.year === year
+      ) {
+        setOca(oc);
+        // TODO: ☝️ Why not setting
+      }
+    });
   }, [day, month, year]);
 
-  const getHrDiff = (hm) => {
-    var t = parseFloat(`${hm.split(":")[0]}.${hm.split(":")[1]}`);
-    var n = parseFloat(`${+new Date().getHours()}.${+new Date().getMinutes()}`);
-
-    return n - t >= 0.0 && n - t <= 1.0;
-  };
   const getExt = (n) => {
     var ext = ["st", "nd", "rd"];
     return n > 4 ? "th" : ext[n - 1];
@@ -104,6 +113,11 @@ const Happenings = () => {
     history.push("/");
     localStorage.removeItem("batch");
   };
+
+  // useEffect(() => {
+
+  // }, [day, month, year]);
+
   return (
     <>
       <div className="calendar light">
@@ -132,14 +146,20 @@ const Happenings = () => {
                 document.querySelector("#datepicker").focus();
               }}
             >
-              {/* 📅 */}
               <Calender />
             </div>
             <div className="cl_title">{getDayName(day, month, year)}</div>
             <div className="cl_copy">
               {day + getExt(parseInt(day))} {monthName[month - 1]} {year}
             </div>
-            <Occasion />
+            {oca && (
+              <div className="fest">
+                <Festival />
+                <span>{oca.name}</span>
+                {oca.type.includes("National holiday") && <IndianFlag />}
+              </div>
+            )}
+            {/* <Occasion day={day} month={month} year={year} /> */}
           </div>
         </div>
         <div className="calendar_events">
@@ -149,30 +169,17 @@ const Happenings = () => {
               {schedule ? (
                 <>
                   {Object.keys(schedule).map((id) => (
-                    <>
-                      <div key={id} className="event_item">
-                        {+new Date().getUTCDate() === day &&
-                        +new Date().getUTCMonth() + 1 === month &&
-                        +new Date().getUTCFullYear() === year &&
-                        getHrDiff(id) ? (
-                          <div className="ei_Dot dot_active"></div>
-                        ) : (
-                          <div className="ei_Dot"></div>
-                        )}
-                        <div className="ei_Title">{id}</div>
-                        <div className="ei_Copy">{schedule[id]}</div>
-                      </div>
-                    </>
+                    <EventDiv
+                      id={id}
+                      day={day}
+                      month={month}
+                      year={year}
+                      eventName={schedule[id]}
+                    />
                   ))}
                 </>
               ) : (
-                <div className="loader">
-                  <div className="clock">
-                    <div className="minutes"></div>
-                    <div className="hours"></div>
-                  </div>
-                  <div className="txt">loading</div>
-                </div>
+                <Loader />
               )}
             </div>
           </div>

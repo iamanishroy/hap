@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { localStorage } from "window-or-global";
 import "./../../style/BatchChooser.css";
 import fetchBatch from "../../adapters/fetchBatch";
+import Loader from "../common/Loader";
+import Batch from "./components/Batch";
 
 const BatchChooser = () => {
-  const history = useHistory();
-  const setBatch = (batchID, batchName) => {
-    localStorage.setItem("batch", batchID);
-    localStorage.setItem("batchName", batchName);
-    history.push("/timetable");
-  };
-
   const [batchList, setBatchList] = useState();
 
   useEffect(() => {
@@ -35,15 +29,7 @@ const BatchChooser = () => {
           <div className="batchOptionsContainer">
             <div className="options">
               {Object.keys(batchList).map((id) => (
-                <>
-                  <div
-                    key={id}
-                    onClick={() => setBatch(id, batchList[id])}
-                    className="option"
-                  >
-                    {batchList[id]}
-                  </div>
-                </>
+                <Batch id={id} batchName={batchList[id]} />
               ))}
             </div>
           </div>
@@ -51,13 +37,7 @@ const BatchChooser = () => {
       ) : (
         <div className="batchOptionsContainer">
           <div className="options">
-            <div className="loader" style={{ marginTop: "unset" }}>
-              <div className="clock">
-                <div className="minutes"></div>
-                <div className="hours"></div>
-              </div>
-              <div className="txt">loading</div>
-            </div>
+            <Loader mtu={true} />
           </div>
         </div>
       )}
