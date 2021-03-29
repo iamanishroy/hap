@@ -9,9 +9,9 @@ const EventDiv = ({ id, day, month, year, eventName }) => {
   };
   return (
     <div key={id} className="event_item">
-      {+new Date().getUTCDate() === day &&
-      +new Date().getUTCMonth() + 1 === month &&
-      +new Date().getUTCFullYear() === year &&
+      {+new Date().getDate() === day &&
+      +new Date().getMonth() + 1 === month &&
+      +new Date().getFullYear() === year &&
       getHrDiff(id) ? (
         <div className="ei_Dot dot_active"></div>
       ) : (

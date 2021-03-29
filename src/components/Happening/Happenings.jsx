@@ -32,9 +32,9 @@ const Happenings = () => {
     history.push("/");
   }
   var dateObj = new Date();
-  const [day, setDay] = useState(dateObj.getUTCDate());
-  const [month, setMonth] = useState(dateObj.getUTCMonth() + 1); //months from 1-12
-  const [year, setYear] = useState(dateObj.getUTCFullYear());
+  const [day, setDay] = useState(dateObj.getDate());
+  const [month, setMonth] = useState(dateObj.getMonth() + 1); //months from 1-12
+  const [year, setYear] = useState(dateObj.getFullYear());
 
   const [schedule, setSchedule] = useState();
 
@@ -52,15 +52,15 @@ const Happenings = () => {
 
   const getDayName = (day, month, year) => {
     if (
-      dateObj.getUTCFullYear() === year &&
-      dateObj.getUTCMonth() + 1 === month &&
-      dateObj.getUTCDate() === parseInt(day)
+      dateObj.getFullYear() === year &&
+      dateObj.getMonth() + 1 === month &&
+      dateObj.getDate() === parseInt(day)
     )
       return "Today";
     if (
-      dateObj.getUTCFullYear() === year &&
-      dateObj.getUTCMonth() + 1 === month &&
-      dateObj.getUTCDate() + 1 === parseInt(day)
+      dateObj.getFullYear() === year &&
+      dateObj.getMonth() + 1 === month &&
+      dateObj.getDate() + 1 === parseInt(day)
     )
       return "Tomorrow";
     var baseDate = new Date(Date.UTC(year, month - 1, day));
@@ -72,9 +72,9 @@ const Happenings = () => {
       setSchedule(null);
       var batch = localStorage.getItem("batch");
       var dateObj = new Date();
-      var localVarName = `${batch}_${dateObj.getUTCFullYear()}_${
-        dateObj.getUTCMonth() + 1
-      }_${dateObj.getUTCDay()}_${year}_${month}_${day}`;
+      var localVarName = `${batch}_${dateObj.getFullYear()}_${
+        dateObj.getMonth() + 1
+      }_${dateObj.getDay()}_${year}_${month}_${day}`;
 
       if (localStorage.getItem(localVarName)) {
         setSchedule(JSON.parse(localStorage.getItem(localVarName)));
